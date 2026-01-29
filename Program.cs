@@ -1,4 +1,12 @@
-var builder = WebApplication.CreateBuilder(args);
+var builder = WebApplication.CreateBuilder(new WebApplicationOptions
+{
+    Args = args,
+    ContentRootPath = AppContext.BaseDirectory
+});
+
+// Disable file watching to avoid inotify issues on free tier
+builder.Configuration.Sources.Clear();
+
 var app = builder.Build();
 
 // Use Render's PORT if available
