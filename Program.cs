@@ -1,17 +1,10 @@
-var builder = WebApplication.CreateBuilder(new WebApplicationOptions
-{
-    Args = args,
-    ContentRootPath = AppContext.BaseDirectory
-});
+var builder = WebApplication.CreateBuilder(args);
 
-// Disable file watching to avoid inotify issues on free tier
-builder.Configuration.Sources.Clear();
+// Configure to use PORT environment variable
+var port = Environment.GetEnvironmentVariable("PORT") ?? "10000";
+builder.WebHost.UseUrls($"http://0.0.0.0:{port}");
 
 var app = builder.Build();
-
-// Use Render's PORT if available
-var port = Environment.GetEnvironmentVariable("PORT") ?? "10000";
-app.Urls.Add($"http://0.0.0.0:{port}");
 
 // Your existing endpoint
 app.MapGet("/u2004004_student_cuet_ac_bd", (HttpRequest request) =>
