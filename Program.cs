@@ -6,7 +6,7 @@ var port = Environment.GetEnvironmentVariable("PORT") ?? "5000";
 app.Urls.Add($"http://*:{port}");
 
 // Your existing endpoint
-app.MapGet("/rashfi_example_com", (HttpRequest request) =>
+app.MapGet("/u2004004_student_cuet_ac_bd", (HttpRequest request) =>
 {
     string xStr = request.Query["x"];
     string yStr = request.Query["y"];
