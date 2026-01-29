@@ -1,0 +1,13 @@
+C:\Users\Asus\Documents\itransition_tasks\Task3Api\out\Task3Api.exe
+C:\Users\Asus\Documents\itransition_tasks\Task3Api\out\out\web.config
+C:\Users\Asus\Documents\itransition_tasks\Task3Api\out\appsettings.Development.json
+C:\Users\Asus\Documents\itransition_tasks\Task3Api\out\appsettings.json
+C:\Users\Asus\Documents\itransition_tasks\Task3Api\out\out\appsettings.Development.json
+C:\Users\Asus\Documents\itransition_tasks\Task3Api\out\out\appsettings.json
+C:\Users\Asus\Documents\itransition_tasks\Task3Api\out\out\Task3Api.deps.json
+C:\Users\Asus\Documents\itransition_tasks\Task3Api\out\out\Task3Api.runtimeconfig.json
+C:\Users\Asus\Documents\itransition_tasks\Task3Api\out\out\Task3Api.staticwebassets.endpoints.json
+C:\Users\Asus\Documents\itransition_tasks\Task3Api\out\Task3Api.dll
+C:\Users\Asus\Documents\itransition_tasks\Task3Api\out\Task3Api.deps.json
+C:\Users\Asus\Documents\itransition_tasks\Task3Api\out\Task3Api.runtimeconfig.json
+C:\Users\Asus\Documents\itransition_tasks\Task3Api\out\Task3Api.pdb
