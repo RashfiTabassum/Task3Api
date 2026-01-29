@@ -12,30 +12,46 @@ app.MapGet("/u2004004_student_cuet_ac_bd", (HttpRequest request) =>
     string xStr = request.Query["x"];
     string yStr = request.Query["y"];
 
+    // Check for missing or empty parameters
+    if (string.IsNullOrWhiteSpace(xStr) || string.IsNullOrWhiteSpace(yStr))
+        return Results.Text("NaN");
+
+    // Try to parse as integers
     bool xValid = int.TryParse(xStr, out int x);
     bool yValid = int.TryParse(yStr, out int y);
 
+    // Check if parsing failed or values are not natural numbers (must be > 0)
     if (!xValid || !yValid || x <= 0 || y <= 0)
         return Results.Text("NaN");
 
-    int lcm = LCM(x, y);
-    return Results.Text(lcm.ToString());
+    try
+    {
+        long lcm = LCM(x, y);
+        return Results.Text(lcm.ToString());
+    }
+    catch (OverflowException)
+    {
+        return Results.Text("NaN");
+    }
 });
 
-int GCD(int a, int b)
+long GCD(long a, long b)
 {
     while (b != 0)
     {
-        int temp = b;
+        long temp = b;
         b = a % b;
         a = temp;
     }
     return a;
 }
 
-int LCM(int a, int b)
+long LCM(long a, long b)
 {
-    return a / GCD(a, b) * b;
+    checked
+    {
+        return a / GCD(a, b) * b;
+    }
 }
 
 // Run the app
