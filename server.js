@@ -25,23 +25,23 @@ function lcm(a, b) {
 }
 
 // Helper to validate if string is a valid natural number
+// Natural numbers are positive integers: 1, 2, 3, ...
+// Accept ONLY pure digit strings representing numbers > 0
 function isValidNaturalNumber(str) {
-    // Check if empty or contains only whitespace
-    if (!str || str.trim() === '') return false;
+    // Must be a string
+    if (typeof str !== 'string') return false;
     
-    const trimmed = str.trim();
+    // Must not be empty
+    if (str.length === 0) return false;
     
-    // Check for non-digit characters (except leading +)
-    if (!/^\+?\d+$/.test(trimmed)) return false;
+    // Must contain ONLY digits (no spaces, signs, or other characters)
+    if (!/^\d+$/.test(str)) return false;
     
-    // Remove optional leading +
-    const cleaned = trimmed.startsWith('+') ? trimmed.slice(1) : trimmed;
+    // Must not have leading zeros (unless it's just "0")
+    if (str.length > 1 && str[0] === '0') return false;
     
-    // Check for leading zeros (except "0" itself)
-    if (cleaned.length > 1 && cleaned.startsWith('0')) return false;
-    
-    // Check if it's zero (not a natural number)
-    if (cleaned === '0') return false;
+    // Must not be "0" (natural numbers start from 1)
+    if (str === '0') return false;
     
     return true;
 }
@@ -51,42 +51,36 @@ app.get('/u2004004_student_cuet_ac_bd', (req, res) => {
     const xStr = req.query.x;
     const yStr = req.query.y;
 
-    // Check for missing parameters
+    // Check for missing parameters (undefined means not provided at all)
     if (xStr === undefined || yStr === undefined) {
-        return res.type('text/plain').send('NaN');
+        res.set('Content-Type', 'text/plain; charset=utf-8');
+        return res.send('NaN');
     }
 
-    // Validate both inputs are valid natural numbers
+    // Validate both inputs are valid natural numbers (strict validation)
     if (!isValidNaturalNumber(xStr) || !isValidNaturalNumber(yStr)) {
-        return res.type('text/plain').send('NaN');
+        res.set('Content-Type', 'text/plain; charset=utf-8');
+        return res.send('NaN');
     }
 
     try {
-        // Clean the strings (remove leading + if present)
-        const xCleaned = xStr.trim().replace(/^\+/, '');
-        const yCleaned = yStr.trim().replace(/^\+/, '');
-        
-        // Convert to BigInt
-        const x = BigInt(xCleaned);
-        const y = BigInt(yCleaned);
-        
-        // Double-check they are positive (natural numbers)
-        if (x <= 0n || y <= 0n) {
-            return res.type('text/plain').send('NaN');
-        }
+        // Convert to BigInt (no need to clean, already validated)
+        const x = BigInt(xStr);
+        const y = BigInt(yStr);
         
         // Calculate LCM
         const result = lcm(x, y);
         
-        // Check for invalid result
-        if (result <= 0n) {
-            return res.type('text/plain').send('NaN');
-        }
+        // Convert to string (plain digits only)
+        const resultStr = result.toString();
         
-        return res.type('text/plain').send(result.toString());
+        // Send plain text response
+        res.set('Content-Type', 'text/plain; charset=utf-8');
+        return res.send(resultStr);
     } catch (error) {
-        // Catch any BigInt conversion errors or overflow
-        return res.type('text/plain').send('NaN');
+        // Catch any errors
+        res.set('Content-Type', 'text/plain; charset=utf-8');
+        return res.send('NaN');
     }
 });
 
