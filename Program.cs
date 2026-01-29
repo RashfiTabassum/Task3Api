@@ -1,9 +1,9 @@
 var builder = WebApplication.CreateBuilder(args);
 var app = builder.Build();
 
-// Use Railway's PORT if available
-var port = Environment.GetEnvironmentVariable("PORT") ?? "5000";
-app.Urls.Add($"http://*:{port}");
+// Use Render's PORT if available
+var port = Environment.GetEnvironmentVariable("PORT") ?? "10000";
+app.Urls.Add($"http://0.0.0.0:{port}");
 
 // Your existing endpoint
 app.MapGet("/u2004004_student_cuet_ac_bd", (HttpRequest request) =>
